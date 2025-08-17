@@ -18,6 +18,17 @@ RUN pnpm run build
 # Go application
 FROM golang:1.21-alpine AS go-builder
 
+# ตั้งค่า proxy และ DNS helper
+ENV GOPROXY=https://goproxy.io,direct
+ENV GOSUMDB=off  
+#ใช้เฉพาะในกรณีเร่งด่วน (ไม่แนะนำใน production)
+
+# ติดตั้งเครื่องมือพื้นฐาน
+RUN apk add --no-cache curl ca-certificates
+
+# ตรวจสอบการเชื่อมต่อ (debug)
+# RUN curl -s https://proxy.golang.org | head -n 5
+
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod tidy
