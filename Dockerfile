@@ -23,7 +23,9 @@ COPY go.mod go.sum ./
 RUN go mod tidy
 
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+#RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+RUN go build -a main .
+
 
 # Final stage
 FROM alpine:3.19
