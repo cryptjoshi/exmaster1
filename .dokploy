@@ -1,0 +1,25 @@
+# Dokploy Configuration Directory
+# This directory contains Dokploy-specific configuration files
+
+# Build configuration
+BUILD_CONTEXT=.
+DOCKERFILE=Dockerfile
+
+# Environment
+NODE_ENV=production
+PORT=8088
+
+# Health checks
+HEALTH_CHECK_PATH=/api/health
+HEALTH_CHECK_PORT=8088
+HEALTH_CHECK_INTERVAL=30s
+HEALTH_CHECK_TIMEOUT=10s
+HEALTH_CHECK_RETRIES=3
+
+# Resources
+MEMORY_LIMIT=512m
+CPU_LIMIT=0.5
+
+# Auto-deploy on git push
+AUTO_DEPLOY=true
+BRANCH=main

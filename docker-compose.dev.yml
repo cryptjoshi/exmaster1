@@ -1,0 +1,41 @@
+# Development docker-compose with live reload
+services:
+  # Golang backend with Air live reload
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8088:8088"
+    volumes:
+      - .:/app
+      - /app/tmp
+    environment:
+      - PORT=8088
+      - NODE_ENV=development
+      - FRONTEND_URL=http://frontend:3001
+    depends_on:
+      - frontend
+    networks:
+      - app-network
+
+  # Next.js frontend with live reload
+  frontend:
+    build:
+      context: ./static
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./static:/app
+      - /app/node_modules
+      - /app/.pnpm-store
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

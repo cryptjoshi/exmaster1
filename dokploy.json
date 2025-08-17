@@ -1,0 +1,38 @@
+{
+  "name": "batch-app",
+  "description": "Golang Fiber + Next.js Application",
+  "type": "dockerfile",
+  "dockerfile": "Dockerfile",
+  "buildContext": ".",
+  "domains": [
+    {
+      "host": "your-domain.com",
+      "port": 8088,
+      "https": true
+    }
+  ],
+  "environment": {
+    "NODE_ENV": "production",
+    "PORT": "8088"
+  },
+  "healthCheck": {
+    "enabled": true,
+    "path": "/api/health",
+    "port": 8088,
+    "interval": 30,
+    "timeout": 10,
+    "retries": 3
+  },
+  "resources": {
+    "memory": "512m",
+    "cpu": "0.5"
+  },
+  "buildArgs": {},
+  "ports": [
+    {
+      "containerPort": 8088,
+      "hostPort": 8088
+    }
+  ],
+  "restart": "unless-stopped"
+}
