@@ -28,8 +28,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 # Final stage
 FROM alpine:3.19
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.edge.kernel.org/g' /etc/apk/repositories \
- && apk add --no-cache ca-certificates tzdata
+# RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.edge.kernel.org/g' /etc/apk/repositories \
+#  && apk add --no-cache ca-certificates tzdata
 
 WORKDIR /root/
 
