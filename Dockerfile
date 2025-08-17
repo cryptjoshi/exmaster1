@@ -26,11 +26,11 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 # Final stage
-FROM alpine:3.18
+FROM alpine:3.19
 
-RUN apk update && \
-    apk add --no-cache ca-certificates tzdata && \
-    rm -rf /var/cache/apk/*
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.edge.kernel.org/g' /etc/apk/repositories \
+ && apk add --no-cache ca-certificates tzdata
+
 WORKDIR /root/
 
 # Copy the Go binary
